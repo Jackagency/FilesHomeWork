@@ -1,24 +1,28 @@
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.zip.ZipFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 
 public class ZipParse {
-    ClassLoader classLoader = getClass().getClassLoader();
-
 
     @Test
     void parseZipTest() throws Exception {
-        try (InputStream is = classLoader.getResourceAsStream("files/test.zip");
-             ZipInputStream zis = new ZipInputStream(is)) {
-            ZipEntry entry;
-            while ((entry = zis.getNextEntry()) != null) {
-                assertThat(entry.getName()).contains("TestCs.csv");
+        String pathFile = "/Users/jackagency/IdeaProjects/FilesHomeWork/src/test/resources/files/test.zip";
+        ZipFile zipFile = new ZipFile(pathFile);
+        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            if (entry.getName().contains("pdf")) {
+                assertThat(entry.getName()).isEqualTo("TestPd.pdf");
+            } else if (entry.getName().contains("xlsx")) {
+                assertThat(entry.getName()).isEqualTo("TestEx.xlsx");
+            } else if (entry.getName().contains("csv")) {
+                assertThat(entry.getName()).isEqualTo("TestCs.csv");
             }
         }
     }
