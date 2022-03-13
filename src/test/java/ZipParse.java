@@ -18,8 +18,7 @@ public class ZipParse {
 
     @Test
     void parseZipTest() throws Exception {
-        String pathFile = "/Users/jackagency/IdeaProjects/FilesHomeWork/src/test/resources/files/ezyzip.zip";
-        ZipFile zipFile = new ZipFile(pathFile);
+        ZipFile zipFile = new ZipFile("src/test/resources/files/ezyzip.zip");
         Enumeration<? extends ZipEntry> entries = zipFile.entries();
         while (entries.hasMoreElements()) {
             ZipEntry entry = entries.nextElement();
